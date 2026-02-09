@@ -123,6 +123,99 @@ const INITIAL_FORM: ContactForm = {
   summary: "",
 };
 
+function BrandGlyph() {
+  return (
+    <svg viewBox="0 0 48 48" className="brand-glyph" aria-hidden>
+      <defs>
+        <linearGradient id="glyph-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#334155" />
+          <stop offset="100%" stopColor="#1e3a8a" />
+        </linearGradient>
+      </defs>
+      <rect x="4" y="4" width="40" height="40" rx="12" fill="url(#glyph-grad)" />
+      <path
+        d="M15 29.5V18.5H23.5C27.2 18.5 29.3 20.3 29.3 23.1C29.3 25.8 27.2 27.7 23.5 27.7H18.5V29.5H15ZM18.5 25.2H23.1C24.7 25.2 25.8 24.5 25.8 23.1C25.8 21.7 24.7 21 23.1 21H18.5V25.2ZM30.8 29.5L26.9 24.6L29.5 23.3L35 29.5H30.8Z"
+        fill="white"
+      />
+    </svg>
+  );
+}
+
+function HeroVisualSvg() {
+  return (
+    <svg className="hero-visual-svg" viewBox="0 0 640 640" aria-hidden>
+      <defs>
+        <radialGradient id="mesh-core" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.66" />
+          <stop offset="62%" stopColor="#818cf8" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#818cf8" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="mesh-line" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#3730a3" stopOpacity="0.86" />
+          <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0.62" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="640" height="640" fill="none" />
+      <circle cx="318" cy="312" r="220" fill="url(#mesh-core)" />
+      <path
+        className="hero-flow-path"
+        d="M48 290C140 210 204 210 288 268C365 321 430 338 592 274"
+        stroke="url(#mesh-line)"
+        strokeWidth="2.5"
+        fill="none"
+      />
+      <path
+        className="hero-flow-path delay"
+        d="M58 355C162 420 242 417 338 352C440 284 502 275 594 332"
+        stroke="url(#mesh-line)"
+        strokeWidth="2.5"
+        fill="none"
+      />
+      <path
+        className="hero-flow-path delay-2"
+        d="M120 122C220 170 294 168 372 126C458 80 512 83 560 132"
+        stroke="url(#mesh-line)"
+        strokeWidth="1.8"
+        fill="none"
+      />
+      <circle className="hero-node node-a" cx="288" cy="268" r="8" />
+      <circle className="hero-node node-b" cx="338" cy="352" r="8" />
+      <circle className="hero-node node-c" cx="372" cy="126" r="7" />
+      <circle className="hero-node node-d" cx="506" cy="275" r="7" />
+      <circle className="hero-ring ring-a" cx="318" cy="312" r="112" />
+      <circle className="hero-ring ring-b" cx="318" cy="312" r="168" />
+    </svg>
+  );
+}
+
+function SectionWaveDivider() {
+  return (
+    <div className="section-wave-wrap" aria-hidden>
+      <svg viewBox="0 0 1440 120" className="section-wave-svg">
+        <defs>
+          <linearGradient id="wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#818cf8" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0.35" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0 60C160 10 320 10 480 60C640 110 800 110 960 60C1120 10 1280 10 1440 60"
+          fill="none"
+          stroke="url(#wave-grad)"
+          strokeWidth="2.5"
+        />
+        <path
+          d="M0 75C160 25 320 25 480 75C640 125 800 125 960 75C1120 25 1280 25 1440 75"
+          fill="none"
+          stroke="#94a3b8"
+          strokeOpacity="0.18"
+          strokeWidth="1.6"
+        />
+      </svg>
+    </div>
+  );
+}
+
 export default function Home() {
   const [tilt, setTilt] = useState<TiltState>({ rotateX: -5, rotateY: 10 });
   const [activeStep, setActiveStep] = useState(0);
@@ -140,7 +233,7 @@ export default function Home() {
     if (timelinePaused) return;
     const interval = window.setInterval(() => {
       setActiveStep((prev) => (prev + 1) % TIMELINE_STEPS.length);
-    }, 3600);
+    }, 6200);
     return () => window.clearInterval(interval);
   }, [timelinePaused]);
 
@@ -273,8 +366,9 @@ export default function Home() {
         <div className="landing-grid" aria-hidden />
 
         <header className="sticky top-0 z-30 mx-auto flex w-full max-w-6xl items-center justify-between border-b border-transparent px-6 py-5 backdrop-blur-xl md:px-10">
-          <Link href="#" className="font-display text-lg font-extrabold text-slate-900">
-            Builder Studio
+          <Link href="#" className="brand-mark">
+            <BrandGlyph />
+            <span className="font-display text-lg font-extrabold text-slate-900">Builder Studio</span>
           </Link>
           <nav className="hidden items-center gap-2 text-sm text-slate-600 md:flex">
             {NAV_LINKS.map((item) => (
@@ -283,7 +377,7 @@ export default function Home() {
                 href={item.href}
                 className={`rounded-full px-3 py-1.5 transition ${
                   activeSection === item.id
-                    ? "bg-cyan-100 text-cyan-900"
+                    ? "bg-indigo-100 text-indigo-900"
                     : "hover:bg-white/75 hover:text-slate-900"
                 }`}
               >
@@ -301,16 +395,13 @@ export default function Home() {
           className="reveal-item mx-auto grid w-full max-w-6xl gap-12 px-6 pb-20 pt-12 md:px-10 lg:grid-cols-[1.05fr_0.95fr]"
         >
           <div className="relative z-10">
-            <p className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold tracking-wide text-cyan-800">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-500" />
+            <p className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold tracking-wide text-indigo-800">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-indigo-500" />
               Risk-sharing Builder Studio
             </p>
-            <h1 className="mt-6 font-display text-4xl leading-tight font-extrabold text-slate-900 md:text-6xl">
-              개발비 없이 시작하세요.
-              <br />
-              아이디어만 있으면,
-              <br />
-              <span className="text-cyan-700">서비스는 우리가 만듭니다.</span>
+            <h1 className="hero-heading mt-6 max-w-[15ch] font-display text-4xl font-extrabold text-slate-900 md:text-6xl">
+              개발비 없이 시작하세요. 아이디어만 있으면,{" "}
+              <span className="text-indigo-700">서비스는 우리가 만듭니다.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
               20년+ 경력 팀이 기획부터 출시까지 책임집니다. 우리는 외주가 아니라 리스크를
@@ -335,6 +426,7 @@ export default function Home() {
           </div>
 
           <div className="relative">
+            <HeroVisualSvg />
             <div
               className="timeline-shell"
               onMouseMove={onTimelineMove}
@@ -346,12 +438,22 @@ export default function Home() {
             >
               <div className="timeline-shell-glow" aria-hidden />
               <div className="timeline-header">
-                <p className="text-xs font-semibold tracking-[0.18em] text-cyan-700">EXECUTION ROADMAP</p>
-                <h3 className="mt-2 font-display text-2xl font-extrabold text-slate-900">
-                  맡기면 어떻게 진행되는지
-                  <br />
-                  한눈에 보이도록 설계했습니다.
+                <p className="text-xs font-semibold tracking-[0.18em] text-indigo-700">EXECUTION ROADMAP</p>
+                <h3 className="timeline-title mt-2 font-display text-2xl font-extrabold text-slate-900">
+                  맡기면 어떻게 진행되는지 한눈에 보이도록 설계했습니다.
                 </h3>
+                <svg className="timeline-progress-svg" viewBox="0 0 100 4" aria-hidden>
+                  <line x1="0" y1="2" x2="100" y2="2" className="timeline-progress-bg" />
+                  <line
+                    x1="0"
+                    y1="2"
+                    x2="100"
+                    y2="2"
+                    className="timeline-progress-fg"
+                    pathLength={100}
+                    style={{ strokeDasharray: `${((activeStep + 1) / TIMELINE_STEPS.length) * 100} 100` }}
+                  />
+                </svg>
               </div>
               <div className="timeline-grid">
                 {TIMELINE_STEPS.map((step, idx) => (
@@ -367,7 +469,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="timeline-detail">
-                <p className="text-sm font-semibold text-cyan-800">{activeTimeline.title}</p>
+                <p className="text-sm font-semibold text-indigo-800">{activeTimeline.title}</p>
                 <p className="mt-2 text-sm text-slate-600">산출물: {activeTimeline.deliverable}</p>
                 <p className="mt-1 text-sm text-slate-600">승인 게이트: {activeTimeline.gate}</p>
               </div>
@@ -377,6 +479,7 @@ export default function Home() {
             </p>
           </div>
         </section>
+        <SectionWaveDivider />
 
         <section id="problem" data-reveal className="reveal-item mx-auto w-full max-w-6xl px-6 py-20 md:px-10">
           <p className="section-kicker">Problem</p>
@@ -384,7 +487,7 @@ export default function Home() {
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {PROBLEMS.map((item, idx) => (
               <article key={item} className="surface-panel interactive-card">
-                <p className="text-sm font-semibold text-cyan-700">0{idx + 1}</p>
+                <p className="text-sm font-semibold text-indigo-700">0{idx + 1}</p>
                 <p className="mt-2 text-slate-700">{item}</p>
               </article>
             ))}
@@ -413,8 +516,8 @@ export default function Home() {
                 <li>• AI 자동화 + 시니어 검수로 속도와 신뢰를 동시에 확보합니다.</li>
               </ul>
             </div>
-            <div className="rounded-2xl border border-cyan-100 bg-cyan-50/80 p-6">
-              <p className="text-sm font-semibold text-cyan-800">Trust Framework</p>
+            <div className="rounded-2xl border border-indigo-100 bg-indigo-50/70 p-6">
+              <p className="text-sm font-semibold text-indigo-800">Trust Framework</p>
               <ul className="mt-4 space-y-3 text-slate-700">
                 <li>요구사항 정의부터 기술 리스크를 선제 점검</li>
                 <li>시니어 엔지니어 직접 설계/리뷰</li>
@@ -435,7 +538,7 @@ export default function Home() {
           <ol className="mt-10 grid gap-4 md:grid-cols-5">
             {PROCESS_STEPS.map((step, idx) => (
               <li key={step} className="surface-panel interactive-card min-h-36">
-                <p className="font-display text-3xl font-bold text-cyan-700">{idx + 1}</p>
+                <p className="font-display text-3xl font-bold text-indigo-700">{idx + 1}</p>
                 <p className="mt-3 text-sm text-slate-700">{step}</p>
               </li>
             ))}
@@ -450,7 +553,7 @@ export default function Home() {
               <thead className="bg-slate-100/70 text-slate-700">
                 <tr>
                   <th className="px-4 py-3 font-semibold">일반 개발사</th>
-                  <th className="px-4 py-3 font-semibold text-cyan-700">Builder Studio</th>
+                  <th className="px-4 py-3 font-semibold text-indigo-700">Builder Studio</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -493,7 +596,7 @@ export default function Home() {
               </div>
             </div>
             <div id="trust" className="rounded-3xl border border-slate-200 bg-slate-900 p-8 text-white">
-              <p className="text-xs font-semibold tracking-[0.2em] text-cyan-300">TRUST METRICS</p>
+              <p className="text-xs font-semibold tracking-[0.2em] text-indigo-300">TRUST METRICS</p>
               <h3 className="mt-3 font-display text-3xl font-bold">경력은 결과로 증명합니다.</h3>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 {TRUST_METRICS.map((item) => (
@@ -501,7 +604,7 @@ export default function Home() {
                     key={item.label}
                     className="rounded-2xl border border-white/12 bg-white/6 p-4 backdrop-blur transition-transform duration-300 hover:-translate-y-1"
                   >
-                    <p className="font-display text-2xl font-extrabold text-cyan-300">{item.value}</p>
+                    <p className="font-display text-2xl font-extrabold text-indigo-300">{item.value}</p>
                     <p className="mt-1 text-xs text-slate-200">{item.label}</p>
                   </article>
                 ))}
@@ -520,7 +623,7 @@ export default function Home() {
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {ANON_CASES.map((item) => (
               <article key={item.name} className="surface-panel interactive-card">
-                <p className="text-xs font-semibold tracking-wide text-cyan-700">익명 사례</p>
+                <p className="text-xs font-semibold tracking-wide text-indigo-700">익명 사례</p>
                 <p className="mt-2 font-display text-xl font-bold text-slate-900">{item.name}</p>
                 <p className="mt-2 text-sm text-slate-600">{item.duration}</p>
                 <p className="mt-2 text-sm text-slate-700">{item.result}</p>
@@ -528,6 +631,7 @@ export default function Home() {
             ))}
           </div>
         </section>
+        <SectionWaveDivider />
 
         <section data-reveal className="reveal-item mx-auto w-full max-w-6xl px-6 py-20 md:px-10">
           <p className="section-kicker">Who It Fits</p>
@@ -546,14 +650,12 @@ export default function Home() {
           data-reveal
           className="reveal-item mx-auto w-full max-w-6xl px-6 pb-28 pt-20 md:px-10"
         >
-          <div className="rounded-3xl border border-cyan-200 bg-gradient-to-r from-cyan-600 to-blue-600 p-9 text-white shadow-[0_24px_60px_rgba(8,145,178,0.35)]">
-            <p className="text-xs font-semibold tracking-[0.2em] text-cyan-100">FINAL CTA</p>
-            <h2 className="mt-3 font-display text-3xl font-extrabold leading-tight md:text-4xl">
-              아이디어만 준비하세요.
-              <br />
-              나머지는 우리가 함께합니다.
+          <div className="rounded-3xl border border-indigo-200 bg-gradient-to-r from-slate-800 to-indigo-800 p-9 text-white shadow-[0_24px_60px_rgba(30,41,99,0.35)]">
+            <p className="text-xs font-semibold tracking-[0.2em] text-indigo-100">FINAL CTA</p>
+            <h2 className="cta-title mt-3 font-display text-3xl font-extrabold md:text-4xl">
+              아이디어만 준비하세요. 나머지는 우리가 함께합니다.
             </h2>
-            <p className="mt-4 max-w-2xl text-cyan-50">
+            <p className="mt-4 max-w-2xl text-indigo-50">
               무료 사업성 검토 후 진행 여부를 안내드립니다. 개발비 때문에 시작을 미루지 마세요.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -595,7 +697,7 @@ export default function Home() {
           <div className="modal-panel" onClick={(event) => event.stopPropagation()} role="dialog" aria-modal>
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold tracking-[0.2em] text-cyan-700">CONTACT</p>
+                <p className="text-xs font-semibold tracking-[0.2em] text-indigo-700">CONTACT</p>
                 <h3 className="mt-2 font-display text-2xl font-extrabold text-slate-900">
                   프로젝트 상담 신청
                 </h3>
@@ -606,8 +708,8 @@ export default function Home() {
             </div>
 
             {isSubmitted ? (
-              <div className="mt-6 rounded-2xl border border-cyan-200 bg-cyan-50 p-5">
-                <p className="font-semibold text-cyan-900">접수가 완료되었습니다.</p>
+              <div className="mt-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-5">
+                <p className="font-semibold text-indigo-900">접수가 완료되었습니다.</p>
                 <p className="mt-2 text-sm text-slate-700">
                   입력해주신 내용을 기준으로 팀에서 검토 후 연락드리겠습니다.
                 </p>
