@@ -1,12 +1,12 @@
-# Builder Studio 사업계획서 (실무 운영 기준)
+# ZeroBuilder 사업계획서 (실무 운영 기준)
 
 **사업명(가칭)**
-Builder Partners / ZeroBuild
+ZeroBuilder
 
 **사업 정의**
 개발비 선지급 없이 아이디어를 서비스로 개발하고,
 성과 발생 이후 **지분·매출·운영 수익**으로 회수하는
-**기술 기반 Builder Studio**
+**기술 기반 ZeroBuilder**
 
 ---
 
@@ -157,7 +157,7 @@ Builder Partners / ZeroBuild
 
 # 6. 경쟁 및 차별화
 
-| 구분 | 일반 개발사 | Builder Studio |
+| 구분 | 일반 개발사 | ZeroBuilder |
 | -- | ------ | -------------- |
 | 비용 | 선금     | 초기 0원          |
 | 관계 | 외주     | 파트너            |
@@ -356,7 +356,7 @@ Year 3
 장기적으로
 
 * 연간 100개 프로젝트
-* Builder Studio + VC
+* ZeroBuilder + VC
 * 자체 유니콘 배출
 
 ---

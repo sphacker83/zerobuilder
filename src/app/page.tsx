@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import {
+  INQUIRY_PROJECT_TYPES,
+  type InquiryProjectType,
+  type InquirySubmissionInput,
+} from "@/features/inquiries/types";
 
 const NAV_LINKS = [
   { href: "#problem", label: "문제", id: "problem" },
@@ -109,17 +114,10 @@ type TiltState = {
   rotateY: number;
 };
 
-type ContactForm = {
-  name: string;
-  contact: string;
-  projectType: string;
-  summary: string;
-};
-
-const INITIAL_FORM: ContactForm = {
+const INITIAL_FORM: InquirySubmissionInput = {
   name: "",
   contact: "",
-  projectType: "예비 창업자",
+  projectType: INQUIRY_PROJECT_TYPES[0],
   summary: "",
 };
 
@@ -225,7 +223,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("problem");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formState, setFormState] = useState<ContactForm>(INITIAL_FORM);
+  const [formState, setFormState] = useState<InquirySubmissionInput>(INITIAL_FORM);
 
   const activeTimeline = useMemo(() => TIMELINE_STEPS[activeStep], [activeStep]);
 
@@ -368,7 +366,7 @@ export default function Home() {
         <header className="sticky top-0 z-30 mx-auto flex w-full max-w-6xl items-center justify-between border-b border-transparent px-6 py-5 backdrop-blur-xl md:px-10">
           <Link href="#" className="brand-mark">
             <BrandGlyph />
-            <span className="font-display text-lg font-extrabold text-slate-900">Builder Studio</span>
+            <span className="font-display text-lg font-extrabold text-slate-900">ZeroBuilder</span>
           </Link>
           <nav className="hidden items-center gap-2 text-sm text-slate-600 md:flex">
             {NAV_LINKS.map((item) => (
@@ -397,7 +395,7 @@ export default function Home() {
           <div className="relative z-10">
             <p className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold tracking-wide text-indigo-800">
               <span className="h-2 w-2 animate-pulse rounded-full bg-indigo-500" />
-              Risk-sharing Builder Studio
+              Risk-sharing ZeroBuilder
             </p>
             <h1 className="hero-heading mt-6 max-w-[15ch] font-display text-4xl font-extrabold text-slate-900 md:text-6xl">
               개발비 없이 시작하세요. 아이디어만 있으면,{" "}
@@ -553,7 +551,7 @@ export default function Home() {
               <thead className="bg-slate-100/70 text-slate-700">
                 <tr>
                   <th className="px-4 py-3 font-semibold">일반 개발사</th>
-                  <th className="px-4 py-3 font-semibold text-indigo-700">Builder Studio</th>
+                  <th className="px-4 py-3 font-semibold text-indigo-700">ZeroBuilder</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -739,12 +737,15 @@ export default function Home() {
                   <select
                     value={formState.projectType}
                     onChange={(event) =>
-                      setFormState((prev) => ({ ...prev, projectType: event.target.value }))
+                      setFormState((prev) => ({
+                        ...prev,
+                        projectType: event.target.value as InquiryProjectType,
+                      }))
                     }
                   >
-                    <option>예비 창업자</option>
-                    <option>초기 스타트업</option>
-                    <option>기업 신사업팀</option>
+                    {INQUIRY_PROJECT_TYPES.map((projectType) => (
+                      <option key={projectType}>{projectType}</option>
+                    ))}
                   </select>
                 </label>
                 <label className="form-field">
